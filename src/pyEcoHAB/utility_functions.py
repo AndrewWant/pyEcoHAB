@@ -86,11 +86,7 @@ def make_table_of_all_mouse_pairs(FAM, phases, mice, reverse=False):
 def filter_dark(phases):
     out = []
     for phase in phases:
-        if 'dark' in phase:
-            out.append(phase)
-        elif 'DARK' in phase:
-            out.append(phase)
-        elif 'Dark' in phase:
+        if 'dark' in phase.lower():
             out.append(phase)
     return out
 
@@ -98,11 +94,7 @@ def filter_dark(phases):
 def filter_light(phases):
     out = []
     for phase in phases:
-        if 'light' in phase:
-            out.append(phase)
-        elif 'LIGHT' in phase:
-            out.append(phase)
-        elif 'Light' in phase:
+        if 'light' in phase.lower():
             out.append(phase)
     return out
 
@@ -110,19 +102,8 @@ def filter_light(phases):
 def filter_dark_light(phases):
     out = []
     for phase in phases:
-        if 'light' in phase:
+        if ('light' in phase.lower()) or ('dark' in phase.lower()):
             out.append(phase)
-        elif 'LIGHT' in phase:
-            out.append(phase)
-        elif 'Light' in phase:
-            out.append(phase)
-        elif 'dark' in phase:
-            out.append(phase)
-        elif 'DARK' in phase:
-            out.append(phase)
-        elif 'Dark' in phase:
-            out.append(phase)
-
     return out
 
 
@@ -452,9 +433,9 @@ def calc_excess(res, exp_res):
 
 
 def get_dark_light_data(phase, timeline, ecohab_data, mice):
-    if phase == "dark" or phase == "DARK" or phase == "Dark":
+    if phase.lower() == "dark":
         phases = filter_dark(timeline.sections())
-    elif phase == "light" or phase == "LIGHT" or phase == "Light":
+    elif phase.lower() == "light":
         phases = filter_light(timeline.sections())
     out_phases = [phase]
     data = {mouse: [] for mouse in mice}
